@@ -1,0 +1,12 @@
+[Service]
+SyslogIdentifier=dashboard
+ExecStart=/usr/local/bin/node {{ dir }}/server.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+User={{ node_user }}
+Group={{ node_group }}
+Environment=NODE_ENV={{ node_env }}
+
+[Install]
+WantedBy=multi-user.target

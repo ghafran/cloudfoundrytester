@@ -1,0 +1,42 @@
+---
+- hosts: all
+  name: setup ssh users
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tags:
+    - ssh
+  pre_tasks:
+    - name: update apt-get
+      raw: sudo apt-get update
+
+  tasks:
+    # deploy
+    - name: set up user deploy
+      user: name=deploy comment="deploy" uid=1040 groups=admin createhome=yes system=no shell=/bin/bash
+
+    - name: set up authorized_keys for deploy
+      authorized_key: user=deploy key=""
+
+    - name: Add user deploy to sudoers
+      lineinfile: "dest=/etc/sudoers regexp='^deploy ALL' line='deploy ALL=(ALL) NOPASSWD: ALL' state=present"
+
+    - name: Add .bashrc
+      template: src=../templates/bashrc.j2 dest=/home/deploy/.bashrc
+
+    #ghafran
+    - name: set up user ghafran
+      user: name=ghafran comment="Ghafran" uid=1041 groups=admin createhome=yes system=no shell=/bin/bash
+
+    - name: set up authorized_keys for ghafran
+      authorized_key: user=ghafran key=""
+
+    - name: Add user ghafran to sudoers
+      lineinfile: "dest=/etc/sudoers regexp='^ghafran ALL' line='ghafran ALL=(ALL) NOPASSWD: ALL' state=present"
+
+    - name: Add .bashrc
+      template: src=../templates/bashrc.j2 dest=/home/ghafran/.bashrc
+
+  handlers:
+    - name: restart sshd
+      service: name=sshd state=restarted

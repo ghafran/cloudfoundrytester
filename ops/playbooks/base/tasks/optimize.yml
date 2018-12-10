@@ -1,0 +1,15 @@
+---
+# tasks file for base
+- hosts: all
+  name: optimize ubuntu
+  become: yes
+  become_method: sudo
+  tags:
+    - base
+    - optimize
+  tasks:
+    - name: optimize ubuntu
+      template: src=../templates/99-optimize.conf.j2 dest=/etc/sysctl.d/99-optimize.conf
+
+    - name: restart ntp
+      command: sudo service procps restart

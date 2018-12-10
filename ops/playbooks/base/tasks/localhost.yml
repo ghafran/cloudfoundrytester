@@ -1,0 +1,16 @@
+---
+# tasks file for base
+- hosts: all
+  name: ec2 localhost
+  become: yes
+  become_method: sudo
+  tags:
+    - base
+  tasks:
+    - name: add hostname to /etc/hosts
+      shell: |
+        if grep -q $(hostname) /etc/hosts; then
+          echo "exists"
+        else
+          echo "127.0.0.1 $(hostname)" | sudo tee -a /etc/hosts > /dev/null;
+        fi

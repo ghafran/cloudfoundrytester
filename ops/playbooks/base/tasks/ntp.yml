@@ -1,0 +1,15 @@
+---
+# tasks file for base
+- hosts: all
+  name: install ntp
+  become: yes
+  become_method: sudo
+  tags:
+    - base
+    - ntp
+  tasks:
+    # - name: ensure ntp is at the latest version
+    #   apt: pkg=ntp state=latest
+
+    - name: restart ntp
+      command: sudo service ntp restart

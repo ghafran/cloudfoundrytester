@@ -1,0 +1,19 @@
+---
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-systemd
+  tasks:
+
+    - name: systemd admin
+      template: src=../templates/systemd.j2 dest=/etc/systemd/system/dashboard.service
+
+    - name: reload systemctl
+      shell: |
+        sudo systemctl daemon-reload
+
+    - name: start on reboot
+      shell: |
+        sudo systemctl enable dashboard

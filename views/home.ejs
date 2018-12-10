@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="300">
+    <title>Status Dashboard</title>
+    <link rel="icon" href="/favicon1.webp" type="image/x-icon">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .check-title {
+            float: left;
+            width: 240px;
+        }
+        
+        .check {
+            margin-left: 10px;
+            float: left;
+            width: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col s12 m2">
+
+        </div>
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content black white-text center">
+                    <p class="card-stats-title">Last Deployed</p>
+                    <h4 class="card-stats-number"><span id="sDeployed"></span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content black white-text center">
+                    <p class="card-stats-title">Last Checked</p>
+                    <h4 class="card-stats-number"><span id="sChecked"></span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m2">
+
+        </div>
+    </div>
+    <%
+        _.each(results, (deployment) => {
+        %>
+        <div class="row">
+            <div class="col s12">
+                <ul>
+                    <li>
+                        <div class="card check-title">
+                            <div class="card-content black white-text center">
+                                <h5 class="card-stats-number">
+                                    <a href="<%= deployment.check.route %>" target="_blank">
+                                        <%= deployment.app %>
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card check">
+                            <div class="card-content <%= deployment.success ? 'green' : 'red' %> white-text center">
+                                <p class="card-stats-title">Deployment</p>
+                                <h5 class="card-stats-number">
+                                    Successful
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card check">
+                            <div class="card-content <%= deployment.check.success ? 'green' : 'red' %> white-text center">
+                                <p class="card-stats-title">Health Check</p>
+                                <h5 class="card-stats-number">
+                                    <%= deployment.check.success ? 'Up' : 'Down' %>
+                                </h5>
+                            </div>
+                        </div>
+                    </li>
+                    <ul>
+            </div>
+        </div>
+        <%
+        });
+        %>
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+            <script>
+                var deployedOn = <%= last_updated %>;
+                $(function() {
+                    var since = moment(deployedOn).fromNow();
+                    $("#sDeployed").html(since);
+                });
+
+                var checkedOn = <%= checks_last_updated %>;
+                $(function() {
+                    var since = moment(checkedOn).fromNow();
+                    $("#sChecked").html(since);
+                });
+
+                $(document).click(function() {
+                    window.parent.rotate();
+                });
+            </script>
+</body>
+
+</html>

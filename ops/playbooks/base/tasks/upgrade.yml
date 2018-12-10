@@ -1,0 +1,11 @@
+---
+# tasks file for base
+- hosts: all
+  name: install packages
+  become: yes
+  become_method: sudo
+  tags:
+    - base-upgrade
+  tasks:
+    # - name: upgrade base packages
+    #   apt: upgrade=dist

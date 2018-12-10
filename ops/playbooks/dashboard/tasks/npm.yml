@@ -1,0 +1,23 @@
+---
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-npm
+  tasks:
+
+    - name: npm install
+      # command: sudo npm install --unsafe-perm --no-bin-links
+      command: sudo npm install --unsafe-perm --no-bin-links
+      args:
+        chdir: "{{ dir }}"
+      register: task_result
+      until: task_result.rc == 0
+      retries: 3 # npm sometimes gives error "Maximum call stack size exceeded", ignore and run again
+      delay: 1
+
+    # - name: npm rebuild
+    #   command: npm rebuild
+    #   args:
+    #     chdir: "{{ dir }}"

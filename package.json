@@ -1,0 +1,31 @@
+{
+    "name": "cloudfoundrytester",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/ghafran/cloudfoundrytester.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "homepage": "https://github.com/ghafran/cloudfoundrytester",
+    "dependencies": {
+        "args": "^5.0.0",
+        "bluebird": "^3.4.7",
+        "body-parser": "^1.16.1",
+        "compression": "^1.6.2",
+        "cors": "^2.8.1",
+        "ejs": "^2.6.1",
+        "express": "^4.14.1",
+        "lodash": "^4.17.4",
+        "moment": "^2.17.1",
+        "request": "^2.79.0",
+        "request-promise": "^4.1.1",
+        "serve-static": "^1.11.2",
+        "shelljs": "^0.8.2"
+    }
+}

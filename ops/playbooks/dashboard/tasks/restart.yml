@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-restart
+  tasks:
+
+    - name: restart one-admin
+      service: name=dashboard state=restarted

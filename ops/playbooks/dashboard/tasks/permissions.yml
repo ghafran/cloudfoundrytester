@@ -1,0 +1,17 @@
+---
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-permissions
+  tasks:
+
+    - name: create group
+      group: name={{ node_group }} state=present
+
+    - name: create user
+      user: name={{ node_user }} comment="{{ node_user }} user" uid={{ node_userid }} group={{ node_group }}
+
+    - name: user permissions
+      shell: "chown -R {{ node_user }}:{{ node_group }} {{ dir }}; chmod -R 777 {{ dir }};"

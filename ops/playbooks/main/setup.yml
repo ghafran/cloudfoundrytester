@@ -1,0 +1,18 @@
+- include: ../ssh/tasks/main.yml
+- include: ../base/tasks/localhost.yml
+- include: ../base/tasks/main.yml
+- include: ../base/tasks/ntp.yml
+- include: ../base/tasks/optimize.yml
+- include: ../base/tasks/upgrade.yml
+
+- include: ../nodejs/defaults/main.yml
+- include: ../nodejs/tasks/main.yml
+- include: ../nodejs/tasks/global.yml
+
+- include: ../dashboard/defaults/main.yml
+- include: ../dashboard/tasks/source.yml
+- include: ../dashboard/tasks/npm.yml
+- include: ../dashboard/tasks/permissions.yml
+- include: ../dashboard/tasks/authbind.yml
+- include: ../dashboard/tasks/systemd.yml
+- include: ../dashboard/tasks/restart.yml

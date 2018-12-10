@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-authbind
+  tasks:
+
+    - name: npm install
+      command: sudo setcap 'cap_net_bind_service=+ep' /usr/local/bin/node

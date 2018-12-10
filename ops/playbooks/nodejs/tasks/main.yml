@@ -1,0 +1,16 @@
+---
+- hosts: all
+  name: install nodejs
+  tags:
+    - nodejs
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: install build-essential
+      apt: name=build-essential update_cache=yes cache_valid_time=3600
+
+    - name: Install node.js
+      shell: |
+        wget -O /usr/local/src/{{ nodejs_download_file }} {{ nodejs_download_dir }}/{{ nodejs_download_file }}
+        tar -C /usr/local --strip-components 1 -xzf /usr/local/src/{{ nodejs_download_file }}

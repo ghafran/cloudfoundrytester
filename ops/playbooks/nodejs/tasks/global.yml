@@ -1,0 +1,30 @@
+---
+- hosts: all
+  name: install nodejs global modules
+  tags:
+    - nodejs
+    - nodejs-global
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: install bower
+      npm: name=bower global=yes state=present
+
+    - name: install gulp
+      npm: name=gulp global=yes state=present
+
+    - name: install mocha
+      npm: name=mocha global=yes state=present
+
+    - name: install jshint
+      npm: name=jshint global=yes state=present
+
+    - name: install forever
+      npm: name=forever global=yes state=present
+
+    - name: install npm-check-updates
+      npm: name=npm-check-updates global=yes state=present
+
+    - name: install nsp
+      npm: name=nsp global=yes state=present

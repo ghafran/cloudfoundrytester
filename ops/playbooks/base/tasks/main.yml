@@ -1,0 +1,44 @@
+---
+# tasks file for base
+- hosts: all
+  name: install packages
+  become: yes
+  become_method: sudo
+  tags:
+    - base
+  tasks:
+    - name: update base packages
+      apt: update_cache=yes cache_valid_time=3600
+
+    # - name: install git
+    #   apt: name=git update_cache=yes cache_valid_time=3600
+
+    - name: install curl
+      apt: name=curl update_cache=yes cache_valid_time=3600
+
+    - name: install htop
+      apt: name=htop update_cache=yes cache_valid_time=3600
+
+    - name: install nload
+      apt: name=nload update_cache=yes cache_valid_time=3600
+
+    - name: install wget
+      apt: name=wget update_cache=yes cache_valid_time=3600
+
+    - name: install build-essential
+      apt: name=build-essential update_cache=yes cache_valid_time=3600
+
+    - name: install python
+      apt: name=python update_cache=yes cache_valid_time=3600
+
+    - name: install python-pip
+      apt: name=python-pip update_cache=yes cache_valid_time=3600
+
+    - name: install nano
+      apt: name=nano update_cache=yes cache_valid_time=3600
+
+    - name: install telnet
+      apt: name=telnet update_cache=yes cache_valid_time=3600
+
+    - name: install netcat
+      apt: name=netcat update_cache=yes cache_valid_time=3600

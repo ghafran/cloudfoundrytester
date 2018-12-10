@@ -1,0 +1,15 @@
+---
+- hosts: all
+  name: "setup nodjs default variables"
+  tags:
+    - nodejs
+    - nodejs-node-inspector
+  tasks:
+    - name: set nodejs version
+      set_fact:
+          nodejs_version: v6.9.5
+
+    - name: set nodejs variables
+      set_fact:
+          nodejs_download_dir: http://nodejs.org/dist/{{ nodejs_version }}
+          nodejs_download_file: node-{{ nodejs_version }}-linux-x64.tar.gz

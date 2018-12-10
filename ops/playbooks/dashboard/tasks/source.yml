@@ -1,0 +1,31 @@
+---
+# This overwrites application settings in config.js with default file in repository.  MUST run config.yml after this playbook.
+- hosts: all
+  name: one pre tasks
+  become: yes
+  become_method: sudo
+  tags:
+    - one-source
+  tasks:
+
+    - name: save deploy key root
+      copy: src=../files/dashboard_id_rsa dest=/root/.ssh/id_rsa mode=0600
+
+    - stat:
+        path: "{{ dir }}"
+      register: st
+
+    - name: clone source code
+      shell: |
+        ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+        git clone {{ git_repository }} {{ dir }}
+      when: not st.stat.exists
+
+    - name: pull latest source code
+      shell: |
+        yes | git fetch
+        git reset --hard HEAD
+        git checkout {{ git_branch }}
+        git pull origin {{ git_branch }}
+      args:
+        chdir: "{{ dir }}"

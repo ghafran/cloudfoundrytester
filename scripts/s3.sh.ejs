@@ -1,0 +1,1 @@
+aws s3 cp static/ s3://${AWS_S3_BUCKET}/ --recursive

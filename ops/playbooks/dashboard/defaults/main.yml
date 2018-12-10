@@ -1,0 +1,26 @@
+---
+# defaults file for one
+- hosts: all
+  name: "setup one default variables"
+  tags:
+    - one
+    - one-vars
+  tasks:
+    - name: set environment variables
+      set_fact:
+        git_repository: "git@github.com:ghafran/cloudcoundrytester"
+        git_branch: "master"
+        git_deploy_key: "/srv/dashboard_id_rsa"
+        env: "dev"
+
+    - name: set nodejs variables
+      set_fact:
+        node_production: false
+        node_env: "development"
+        node_user: "dashboard"
+        node_userid: "1060"
+        node_group: "dashboard"
+
+    - name: set base directory variables
+      set_fact:
+        dir: "/srv/dashboard"
